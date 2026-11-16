@@ -16,7 +16,7 @@ def execute(job_id):
         j.status='running'; db.commit()
         try:
             d=db.get(Dataset,j.dataset_id)
-            result=analyze(d.records,j.params)
+            result=analyze(d.records,j.params,metric=j.metric_snapshot)
             json.dumps(result,allow_nan=False)
             j.result=result;j.status='completed';j.finished_at=time.time()
             record(db,'worker','job.completed',{'id':j.id})

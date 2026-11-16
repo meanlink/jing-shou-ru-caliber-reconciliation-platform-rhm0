@@ -26,7 +26,7 @@ def toggle(id:int,db=Depends(get_db),u=Depends(admin_only)):
     return report_dict(r)
 @router.get('/deliveries')
 def deliveries(db=Depends(get_db),u=Depends(current_user)):
-    return [delivery_dict(d) for d in db.scalars(select(Delivery).order_by(Delivery.id.desc()).limit(100))]
+    return [delivery_dict(d) for d in db.scalars(select(Delivery).order_by(Delivery.id.desc()).limit(200))]
 @router.get('/deliveries/{id}/download')
 def download(id:int,format:str='csv',db=Depends(get_db),u=Depends(current_user)):
     d=db.get(Delivery,id)
